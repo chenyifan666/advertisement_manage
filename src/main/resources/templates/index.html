@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/easyui/uimaker/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/easyui/uimaker/icon.css">
+    <script type="text/javascript" src="/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/easyui/easyui-lang-zh_CN.js"></script>
+</head>
+<body class="easyui-layout">
+
+    <div data-options="region:'north'" style="height:100px; background: #ec4e00; padding: 20px 20px">
+        <img src="main_logo.png" alt="">
+    </div>
+    <div data-options="region:'south'" style="height:50px; border-bottom: 3px solid #ec4e00">
+        <p align="center" style="font-size: 14px">撩课学院</p>
+    </div>
+    <div data-options="region:'west',split:true" style="width:300px;">
+
+        <div id="aa" class="easyui-accordion" data-options="fit:true">
+            <div title="菜单" data-options="iconCls:'icon-save',selected:true" style="overflow:auto;padding:10px;">
+                    <!--tree-->
+                    <ul id="tree"></ul>
+            </div>
+            <div title="Title2" data-options="iconCls:'icon-reload'" style="padding:10px;">
+                content2
+            </div>
+            <div title="Title3">
+                content3
+            </div>
+        </div>
+    </div>
+    <div data-options="region:'center'" style="background:#eee;">
+        <!--标签-->
+        <div id="tabs" style="overflow: hidden" >
+
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $("#tabs").tabs({
+                fit:true
+            })
+            $('#tree').tree({
+                data:[{
+                    "id":1,
+                    "text":"系统管理",
+                    "children":[{
+                        "text":"员工管理",
+                        "attributes":{
+                            "url":"/employee"
+                        }
+                    },{
+                        "text":"部门管理",
+                        "attributes":{
+                            "url":"department.html"
+                        }
+                    }]
+                }],
+                lines:true,
+                onClick: function(node){
+                    /*在添加之前, 做判断  判断这个标签是否存在 */
+                   var exists =   $("#tabs").tabs("exists",node.text);
+                    if(exists){
+                        /*存在,就让它选中*/
+                        $("#tabs").tabs("select",node.text);
+                    }else {
+                        /*如果不存在 ,添加新标签*/
+                        $("#tabs").tabs("add",{
+                            title:node.text,
+                            /*href:node.attributes.url,*/  /*href  引入的是body当中*/
+                            content:"<iframe src="+node.attributes.url+" frameborder='0' width='100%' height='100%'></iframe>",
+                            closable:true
+                        })
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
