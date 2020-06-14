@@ -38,6 +38,12 @@
             <scope>runtime</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!--引入druid连接池-->
         <dependency>
             <groupId>com.alibaba</groupId>
